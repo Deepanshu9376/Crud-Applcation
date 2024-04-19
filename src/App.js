@@ -1,13 +1,17 @@
 // import logo from './logo.svg';
 import "./App.css";
-// import Create from "./Users/Create";
-import Form from "./Users/Form";
+import Create from "./Users/Create";
+import { Routes, Route } from "react-router-dom";
+import View from "./Users/View";
 
 function App() {
   return (
-    <div className="App">
-      <Form />
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Create/>} />
+        <Route path="/view" element={<View/>} />
+      </Routes>
+    </>
   );
 }
 
