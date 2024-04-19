@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-const Create = () => {
+const Form = () => {
   const {
     register,
     handleSubmit,
@@ -21,15 +21,15 @@ const Create = () => {
 
   return (
     <>
-      <h1>Create</h1>
-
-      <section className="container-fluid px-5 my-5">
+    <div className="create"></div>
+      <div className="container-fluid px-5 my-2 .bg-dark">
+        <h1>Create</h1>
+      </div>
+      <section className="container-fluid px-5 my-5 ">
         <div className="container-fluid px-5 my-5">
           <form onSubmit={handleSubmit(onSubmit)} className="row g-3 border">
             <div className="col-md-4 gx-5 my-4">
-              <label htmlFor="inputText6" className="col-form-label">
-                Name
-              </label>
+              <label className="col-form-label">Name:</label>
               <input
                 {...register("name", {
                   required: true,
@@ -47,34 +47,10 @@ const Create = () => {
               )}
             </div>
             <div className="col-md-4 gx-5 my-4">
-              <label className="col-form-label">Email</label>
-              <input
-                {...register("email", {
-                  required: true,
-                  pattern: /^\S+@\S+$/i,
-                })}
-                type="email"
-                id="email"
-                name="email"
-                className={`form-control ${errors.email ? "is-invalid" : ""}`}
-                aria-describedby="textHelpInline"
-              />
-              {errors.email && (
-                <span className="invalid-feedback">
-                  Please enter a valid email address
-                </span>
-              )}
-            </div>
-            <div className="col-md-4 gx-5 my-4">
-              <label htmlFor="inputNumber6" className="col-form-label">
-                Contact Number
-              </label>
+              <label className="col-form-label">Phone Number:</label>
               <input
                 {...register("phone", { required: true, pattern: /^\d{10}$/ })}
-                type="number"
-                id="inputNumber6"
                 className={`form-control ${errors.phone ? "is-invalid" : ""}`}
-                aria-describedby="numberHelpInline"
               />
               {errors.phone && (
                 <span className="invalid-feedback">
@@ -83,9 +59,44 @@ const Create = () => {
               )}
             </div>
             <div className="col-md-4 gx-5 my-4">
-              <label htmlFor="radio" className="col-form-label">
-                Gender
-              </label>
+              <label className="col-form-label">Email:</label>
+              <input
+                {...register("email", {
+                  required: true,
+                  pattern: /^\S+@\S+$/i,
+                })}
+                className={`form-control ${errors.email ? "is-invalid" : ""}`}
+              />
+              {errors.email && (
+                <span className="invalid-feedback">
+                  Please enter a valid email address
+                </span>
+              )}
+            </div>
+            <div className="col-md-4 gx-5 my-4">
+              <label className="col-form-label">Upload Image:</label>
+              <input
+                type="file"
+                {...register("image", {
+                  required: true,
+                  validate: validateFile,
+                })}
+                className={`form-control-file ${
+                  errors.image ? "is-invalid" : ""
+                }`}
+                accept=".jpg, .jpeg, .png"
+              />
+              {errors.image && errors.image.type === "validate" && (
+                <span className="invalid-feedback">
+                  Please upload an image with .jpg, .jpeg, or .png extension
+                </span>
+              )}
+              {errors.image && errors.image.type !== "validate" && (
+                <span className="invalid-feedback">This field is required</span>
+              )}
+            </div>
+            <div className="col-md-4 gx-5 my-4">
+              <label className="col-form-label">Gender:</label>
               <div>
                 <input
                   type="radio"
@@ -93,7 +104,7 @@ const Create = () => {
                   {...register("gender", { required: true })}
                   className="me-1"
                 />
-                <label>Male</label>
+                <label className="mr-3 ml-1">Male</label>
                 <input
                   type="radio"
                   value="female"
@@ -103,7 +114,7 @@ const Create = () => {
                 <label>Female</label>
                 <input
                   type="radio"
-                  value="Others"
+                  value="others"
                   {...register("gender", { required: true })}
                   className="ms-4 me-1"
                 />
@@ -116,14 +127,16 @@ const Create = () => {
               )}
             </div>
             <div className="col-md-4 gx-5 my-4">
-              <label htmlFor="inputCategory6" className="col-form-label">
-                Category
-              </label>
-              <select className="form-control">
-                <option>Select</option>
-                <option>General</option>
-                <option>SC/ST</option>
-                <option>OBC</option>
+              <label className="col-form-label">Category:</label>
+              <select
+                {...register("category", { required: true })}
+                className={`form-control ${
+                  errors.category ? "is-invalid" : ""
+                }`}
+              >
+                <option value="general">General</option>
+                <option value="sc/st">SC/ST</option>
+                <option value="others">Others</option>
               </select>
               {errors.category && (
                 <span className="invalid-feedback">
@@ -131,51 +144,9 @@ const Create = () => {
                 </span>
               )}
             </div>
-            <div className="col-md-4 gx-5 my-4">
-              <label htmlFor="inputFile6" className="col-form-label">
-                Upload image
-              </label>
-              <input
-                {...register("image", {
-                  required: true,
-                  validate: validateFile,
-                })}
-                type="file"
-                id="inpuFile6"
-                className={`form-control-file ${
-                  errors.image ? "is-invalid" : ""
-                }`}
-                accept=".jpg, .jpeg, .png"
-                aria-describedby="textHelpInline"
-              />
-              {errors.image && errors.image.type === "validate" && (
-                <span className="invalid-feedback">
-                  Please upload an image with .jpg, .jpeg, or .png extension
-                </span>
-              )}
-              {errors.image && errors.image.type !== "validate" && (
-                <span className="invalid-feedback">This field is required</span>
-              )}
-            </div>
             <div className="col-12 gx-5 my-4">
-              <label htmlFor="inputAddress" className="form-label">
-                Technologies
-              </label>
+              <label className="col-form-label">Technologies:</label>
               <div>
-                <input
-                  type="checkbox"
-                  value="c++"
-                  {...register("technologies")}
-                  className="me-1"
-                />
-                <label className="mr-3 ml-1">C++</label>
-                <input
-                  type="checkbox"
-                  value="javascript"
-                  {...register("technologies")}
-                  className="ms-3 me-1"
-                />
-                <label className="mr-3">JavaScript</label>
                 <input
                   type="checkbox"
                   value="c"
@@ -183,6 +154,27 @@ const Create = () => {
                   className="ms-3 me-1"
                 />
                 <label className="mr-3 ml-1">C</label>
+                <input
+                  type="checkbox"
+                  value="c++"
+                  {...register("technologies")}
+                  className="ms-3 me-1"
+                />
+                <label className="mr-3 ml-1">C++</label>
+                <input
+                  type="checkbox"
+                  value="c#"
+                  {...register("technologies")}
+                  className="ms-3 me-1"
+                />
+                <label>C#</label>
+                <input
+                  type="checkbox"
+                  value="javascript"
+                  {...register("technologies")}
+                  className="ms-3 me-1"
+                />
+                <label className="mr-3">JavaScript</label>
                 <input
                   type="checkbox"
                   value="python"
@@ -211,17 +203,10 @@ const Create = () => {
                   className="ms-3 me-1"
                 />
                 <label>Ruby</label>
-                <input
-                  type="checkbox"
-                  value="c#"
-                  {...register("technologies")}
-                  className="ms-3 me-1"
-                />
-                <label>C#</label>
               </div>
             </div>
-            <div className="text-center col-12 g-4 my-4">
-              <button type="button" className="btn btn-outline-primary">
+            <div className="text-center col-12 g-4 my-2">
+              <button type="submit" className="btn btn-primary">
                 Submit
               </button>
             </div>
@@ -232,4 +217,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default Form;
