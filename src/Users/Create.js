@@ -1,16 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
+import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import View from "./View";
 
 const Create = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    contact: "",
+    image: "",
+    gender: "",
+    category: "",
+    technologies: "",
+  });
+
+  const onSubmit = (formData) => {
+    // setFormData(formData);
+    setShowModal(true);
   };
+
+  function handleOnChange(e) {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  function handleClose() {
+    setShowModal(false);
+    if (!formData) reset();
+  }
+
+  function handleSave(e) {
+    e.preventDefault();
+    console.log("form data submitted",formData)
+    localStorage.setItem("formData", JSON.stringify(formData));
+  }
 
   const validateFile = (value) => {
     if (!value[0]) return true;
@@ -37,10 +71,12 @@ const Create = () => {
                   minLength: 2,
                 })}
                 type="text"
-                id="inputText6"
                 className={`form-control ${errors.name ? "is-invalid" : ""}`}
                 placeholder="Enter name e.g. Deepanshu"
                 aria-describedby="textHelpInline"
+                value={formData.name}
+                onChange={handleOnChange}
+                name="name"
               />
               {errors.name && (
                 <span className="invalid-feedback">This field is required</span>
@@ -49,12 +85,16 @@ const Create = () => {
             <div className="col-md-4 gx-5 my-4">
               <label className="col-form-label">Contact:</label>
               <input
-                {...register("phone", {
-                  required: true,
+                {...register("contact", {
+                  required:true,
                   pattern: /^\d{10}$/,
                 })}
-                className={`form-control ${errors.phone ? "is-invalid" : ""}`}
+                type="tel"
+                name="contact"
+                className={`form-control ${errors.contact ? "is-invalid" : ""}`}
                 placeholder="Enter phone e.g. 6379945453"
+                value={formData.contact}
+                onChange={handleOnChange}
               />
               {errors.phone && (
                 <span className="invalid-feedback">
@@ -71,6 +111,9 @@ const Create = () => {
                 })}
                 className={`form-control ${errors.email ? "is-invalid" : ""}`}
                 placeholder="Enter mail e.g. admin@example.com"
+                value={formData.email}
+                onChange={handleOnChange}
+                name="email"
               />
               {errors.email && (
                 <span className="invalid-feedback">
@@ -81,6 +124,8 @@ const Create = () => {
             <div className="col-md-4 gx-5 my-4">
               <label className="col-form-label">Upload Image:</label>
               <input
+                value={formData.image}
+                name="image"
                 type="file"
                 {...register("image", {
                   required: true,
@@ -89,6 +134,7 @@ const Create = () => {
                 className={`form-control-file ${
                   errors.image ? "is-invalid" : ""
                 }`}
+                onChange={handleOnChange}
                 accept=".jpg, .jpeg, .png"
               />
               {errors.image && errors.image.type === "validate" && (
@@ -102,7 +148,11 @@ const Create = () => {
             </div>
             <div className="col-md-4 gx-5 my-4">
               <label className="col-form-label">Gender:</label>
-              <div>
+              <div
+                value={formData.gender}
+                onChange={handleOnChange}
+                name="gender"
+              >
                 <input
                   type="radio"
                   value="male"
@@ -138,6 +188,9 @@ const Create = () => {
                 className={`form-control ${
                   errors.category ? "is-invalid" : ""
                 }`}
+                value={formData.categ}
+                onChange={handleOnChange}
+                name="category"
               >
                 <option value="general">General</option>
                 <option value="sc/st">SC/ST</option>
@@ -151,7 +204,7 @@ const Create = () => {
             </div>
             <div className="col-12 gx-5 my-4">
               <label className="col-form-label">Technologies:</label>
-              <div>
+              <div value={formData.technologies} onChange={handleOnChange}>
                 <input
                   type="checkbox"
                   value="c"
@@ -211,11 +264,56 @@ const Create = () => {
               </div>
             </div>
             <div className="text-center col-12  my-2">
-              <button type="submit" className="btn btn-primary">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                onClick={handleSubmit(onSubmit)}
+              >
                 Preview
               </button>
             </div>
           </form>
+
+          <Modal show={showModal} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Preview</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {formData && (
+                <ul>
+                  <li>
+                    <strong>Name:</strong> {formData.name}
+                  </li>
+                  <li>
+                    <strong>Phone Number:</strong> {formData.contact}
+                  </li>
+                  <li>
+                    <strong>Email:</strong> {formData.email}
+                  </li>
+                  <li>
+                    <strong>Uploaded Image:</strong> {formData.image}
+                  </li>
+                  <li>
+                    <strong>Gender:</strong> {formData.gender}
+                  </li>
+                  <li>
+                    <strong>Category:</strong> {formData.category}
+                  </li>
+                  <li>
+                    <strong>Technologies:</strong> {formData.technologies}
+                  </li>
+                </ul>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <button className="btn btn-secondary" onClick={handleClose}>
+                Cancel
+              </button>
+              <button className="btn btn-primary" onClick={handleSave}>
+                Confirm
+              </button>
+            </Modal.Footer>
+          </Modal>
         </div>
       </section>
     </>
