@@ -28,7 +28,7 @@ function CardComp(props) {
         <div className="col">
           <strong>Technologies:</strong> {technologies}
         </div>
-        {/* <Button variant="primary">Go somewhere</Button> */}
+        <Button variant="primary">View</Button>
       </Card.Body>
     </Card>
   );

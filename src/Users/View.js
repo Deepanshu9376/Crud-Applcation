@@ -1,20 +1,21 @@
 // DataView.js
 import React from "react";
 import CardComp from "../Components/CardComp";
+import "./view.css"
 
 const View = ({ FormData }) => {
-  const storedFormData = JSON.parse(localStorage.getItem("form"));
+  const storedFormData = JSON.parse(localStorage.getItem("formData"));
   console.log("Stored", storedFormData);
   return (
     <div className="container mt-4">
-      <CardComp
-        name={storedFormData.name}
-        contact={storedFormData.contact}
-        email={storedFormData.email}
-        gender={storedFormData.gender}
-        category={storedFormData.category}
-        technologies={storedFormData.technologies}
-      />
+      {storedFormData?.map((formData)=>{
+        return (
+          <div className="view-component">
+            <CardComp name={formData.name} email={formData.email} 
+             contact={formData.contact} gender={formData.gender} category={formData.category} technologies={formData.technologies}/>
+             </div>
+        );
+      })}
     </div>
   );
 };

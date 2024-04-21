@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import View from "./View";
@@ -21,6 +21,14 @@ const Create = () => {
     category: "",
     technologies: "",
   });
+  const [dataForm,setDataForm]=useState([]);
+  useEffect(() => {
+    const storedData = localStorage.getItem("formData");
+    if (storedData) {
+      setDataForm(JSON.parse(storedData));
+    }
+  }, []);
+  
 
   const onSubmit = (formData) => {
     // setFormData(formData);
@@ -42,9 +50,27 @@ const Create = () => {
 
   function handleSave(e) {
     e.preventDefault();
+    if(!formData){
+
+    }
+    else{
+      const technologiesArray = formData.technologies
+      .split(",")
+      .map((tech) => tech.trim());
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      technologies: technologiesArray,
+    }));
+      setDataForm([...dataForm,formData]);
+      setFormData("");
+    }
     console.log("form data submitted",formData)
-    localStorage.setItem("formData", JSON.stringify(formData));
+    // localStorage.setItem("formData", JSON.stringify(formData));
   }
+  useEffect(() => {
+    localStorage.setItem("formData", JSON.stringify(dataForm));
+  }, [dataForm]);
+
 
   const validateFile = (value) => {
     if (!value[0]) return true;
@@ -203,13 +229,14 @@ const Create = () => {
               )}
             </div>
             <div className="col-12 gx-5 my-4">
-              <label className="col-form-label">Technologies:</label>
-              <div value={formData.technologies} onChange={handleOnChange}>
+            <label className="col-form-label">Technologies:</label>
+              <div>
                 <input
                   type="checkbox"
                   value="c"
                   {...register("technologies")}
                   className="ms-3 me-1"
+                  onChange={handleOnChange}
                 />
                 <label className="mr-3 ml-1">C</label>
                 <input
@@ -217,50 +244,64 @@ const Create = () => {
                   value="c++"
                   {...register("technologies")}
                   className="ms-3 me-1"
+                  onChange={handleOnChange}
                 />
                 <label className="mr-3 ml-1">C++</label>
-                <input
-                  type="checkbox"
-                  value="c#"
-                  {...register("technologies")}
-                  className="ms-3 me-1"
-                />
-                <label>C#</label>
-                <input
-                  type="checkbox"
-                  value="javascript"
-                  {...register("technologies")}
-                  className="ms-3 me-1"
-                />
-                <label className="mr-3">JavaScript</label>
-                <input
-                  type="checkbox"
-                  value="python"
-                  {...register("technologies")}
-                  className="ms-3 me-1"
-                />
-                <label className="mr-3">Python</label>
-                <input
-                  type="checkbox"
-                  value="typescript"
-                  {...register("technologies")}
-                  className="ms-3 me-1"
-                />
-                <label>TypeScript</label>
                 <input
                   type="checkbox"
                   value="java"
                   {...register("technologies")}
                   className="ms-3 me-1"
+                  onChange={handleOnChange}
                 />
-                <label>Java</label>
+               <label className="mr-3 ml-1">C#</label>
+                <input
+                  type="checkbox"
+                  value="C#"
+                  {...register("technologies")}
+                  className="ms-3 me-1"
+                  onChange={handleOnChange}
+                />
+               <label className="mr-3 ml-1">JavaScript</label>
+                <input
+                  type="checkbox"
+                  value="Javascript"
+                  {...register("technologies")}
+                  className="ms-3 me-1"
+                  onChange={handleOnChange}
+                />
+                <label className="mr-3 ml-1">Python</label>
+                <input
+                  type="checkbox"
+                  value="Python"
+                  {...register("technologies")}
+                  className="ms-3 me-1"
+                  onChange={handleOnChange}
+                />
+                <label className="mr-3 ml-1">TypeScript</label>
+                <input
+                  type="checkbox"
+                  value="TypeScript"
+                  {...register("technologies")}
+                  className="ms-3 me-1"
+                  onChange={handleOnChange}
+                />
+                <label className="mr-3 ml-1">Java</label>
+                <input
+                  type="checkbox"
+                  value="java"
+                  {...register("technologies")}
+                  className="ms-3 me-1"
+                  onChange={handleOnChange}
+                />
+               <label className="mr-3 ml-1">Ruby</label>
                 <input
                   type="checkbox"
                   value="ruby"
                   {...register("technologies")}
                   className="ms-3 me-1"
+                  onChange={handleOnChange}
                 />
-                <label>Ruby</label>
               </div>
             </div>
             <div className="text-center col-12  my-2">
