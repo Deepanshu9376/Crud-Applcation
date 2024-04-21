@@ -1,4 +1,10 @@
 .view-component{
     display: grid;
   grid-template-columns: auto auto auto auto;
+  padding-left: 18px;
 }
+
+/* .card-body{
+    background-color: aqua;
+    margin-left: .5rem;
+} */

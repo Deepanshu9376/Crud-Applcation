@@ -21,6 +21,14 @@ const Create = () => {
     category: "",
     technologies: "",
   });
+
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    // Save cards to localStorage whenever it changes
+    localStorage.setItem("cards", JSON.stringify(cards));
+  }, [cards]);
+
   const [dataForm,setDataForm]=useState([]);
   useEffect(() => {
     const storedData = localStorage.getItem("formData");
@@ -64,6 +72,8 @@ const Create = () => {
       setDataForm([...dataForm,formData]);
       setFormData("");
     }
+    const newCard = { id: Date.now(), ...formData }; // Assign a unique ID to each card
+    setCards(prevCards => [...prevCards, newCard]);
     console.log("form data submitted",formData)
     // localStorage.setItem("formData", JSON.stringify(formData));
   }
