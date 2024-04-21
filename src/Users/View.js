@@ -8,9 +8,12 @@ const View = ({ FormData }) => {
   console.log("Stored", storedFormData);
   return (
     <div className="container row mt-4">
-      {storedFormData?.map((formData) => {
+      {storedFormData?.map((formData, index) => {
         return (
-          <div className="view-component col-lg-3 col-md-4 col-sm-6 mb-3 ">
+          <div
+            className="view-component col-lg-3 col-md-4 col-sm-6 mb-3"
+            key={index}
+          >
             <CardComp
               name={formData.name}
               email={formData.email}

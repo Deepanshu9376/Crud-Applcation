@@ -1,24 +1,29 @@
-import Button from "react-bootstrap/Button";
+
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import imageData from "../Assests/10302971.png";
+import "./Component.css";
 
 function CardComp(props) {
   const { name, email, contact, gender, category, technologies } = props;
+
   return (
     <Row xs={2} md={1} className="g-4">
       {Array.from({ length: 1 }).map((_, idx) => (
         <Col key={idx}>
           <Card>
-            <Card.Img variant="top" src="holder.js/100px180" />
+            <div className="imag-parent">
+              <img src={imageData} className="imag" alt="vjvj" />
+            </div>
             <Card.Body>
-              <Card.Title>User</Card.Title>
+              <Card.Title className="texture">User</Card.Title>
               <div>
                 <strong>Name:-</strong>
                 {name}
               </div>
               <div>
-                <strong>Phone Number:</strong>
+                <strong>Contact:</strong>
                 {contact}
               </div>
               <div className="col">
@@ -33,7 +38,6 @@ function CardComp(props) {
               <div className="col">
                 <strong>Technologies:</strong> {technologies}
               </div>
-              <Button variant="primary">View</Button>
             </Card.Body>
           </Card>
         </Col>
