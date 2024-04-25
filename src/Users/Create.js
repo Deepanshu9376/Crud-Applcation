@@ -371,8 +371,4 @@ const Create = () => {
   );
 };
 
-<<<<<<< HEAD
 export default Create;
-=======
-export default Create;
->>>>>>> 0f2c54eeb8538e4e37a45066e163264a40462908
