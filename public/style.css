@@ -1,5 +1,9 @@
 *{
+<<<<<<< HEAD
     background-color: rgb(20, 12, 63);
     /* background: linear-gradient(to right, rgb(0, 110, 255), purple); */
+=======
+    background-color: rgb(5, 2, 20);
+>>>>>>> 0f2c54eeb8538e4e37a45066e163264a40462908
     color: white;
 }

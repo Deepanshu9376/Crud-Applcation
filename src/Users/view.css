@@ -5,6 +5,12 @@
 }
 
 .card-body{
+<<<<<<< HEAD
     margin: .2rem .2rem .2rem .2rem;
 
 }
+=======
+    margin-left: .5rem;
+    margin-right: .5rem;
+}
+>>>>>>> 0f2c54eeb8538e4e37a45066e163264a40462908

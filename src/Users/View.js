@@ -3,8 +3,13 @@ import React from "react";
 import CardComp from "../Components/CardComp";
 import "./view.css";
 
+<<<<<<< HEAD
 const View = () => {
   const storedFormData = JSON.parse(localStorage.getItem("usersData"));
+=======
+const View = ({ FormData }) => {
+  const storedFormData = JSON.parse(localStorage.getItem("formData"));
+>>>>>>> 0f2c54eeb8538e4e37a45066e163264a40462908
   console.log("Stored", storedFormData);
   return (
     <div className="container row mt-4">

@@ -46,4 +46,8 @@ function CardComp(props) {
   );
 }
 
+<<<<<<< HEAD
 export default CardComp;
+=======
+export default CardComp;
+>>>>>>> 0f2c54eeb8538e4e37a45066e163264a40462908
